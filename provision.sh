@@ -31,13 +31,13 @@ apt-get install \
     -y
 
 echo ">>>> Install GUI packages"
-apt-get install xorg i3 slim -y
+apt-get install xorg i3 slim dbus-x11 -y
 
 # Other packages to install (evaluate)
 # libreadline-dev
 # suckless-tools
 # xclip x11-utils autocutsel unclutter
-# dbus-x11 libglib2.0-bin
+# libglib2.0-bin
 
 echo ">>>> Configure and start slim..."
 cp -r /vagrant/config/slim/greeny_dark /usr/share/slim/themes/
@@ -63,6 +63,12 @@ su - melkio <<HEREDOC
         cd ~/.dotfiles
         sh bootstrap.sh
     fi
+HEREDOC
+
+echo ">>>> Configure gnome terminal"
+apt-get install dconf-cli -y
+su - melkio <<HEREDOC
+    dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
 HEREDOC
 
 echo ">>>> That's all, rock on!"
