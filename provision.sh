@@ -56,4 +56,13 @@ apt-get install apt-transport-https -y
 apt-get update
 apt-get install code -y
 
+echo ">>>> Install dotfiles"
+su - melkio <<HEREDOC
+    if [ ! -d ~/dotfiles ]; then
+        git clone https://github.com/melkio/dotfiles.git ~/.dotfiles
+        cd ~/.dotfiles
+        sh bootstrap.sh
+    fi
+HEREDOC
+
 echo ">>>> That's all, rock on!"
