@@ -20,4 +20,6 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--acpi", "on"]
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
+
+  config.vm.provision "shell", path: "provision.sh"
 end
