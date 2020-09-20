@@ -38,14 +38,6 @@ apt-get install xorg i3 slim dbus-x11 -y
 # xclip x11-utils autocutsel unclutter
 # libglib2.0-bin
 
-echo ">>>> Configure and start slim..."
-cp -r /vagrant/config/slim/greeny_dark /usr/share/slim/themes/
-cp /vagrant/config/slim/slim.conf /etc/slim.conf
-
-if service slim status | grep inactive; then
-    service slim start
-fi
-
 echo ">>>> Install VS Code"
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
@@ -68,5 +60,13 @@ sudo -iu melkio <<HEREDOC
 
     dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
 HEREDOC
+
+echo ">>>> Configure and start slim..."
+cp -r /vagrant/config/slim/greeny_dark /usr/share/slim/themes/
+cp /vagrant/config/slim/slim.conf /etc/slim.conf
+
+if service slim status | grep inactive; then
+    service slim start
+fi
 
 echo ">>>> That's all, rock on!"
