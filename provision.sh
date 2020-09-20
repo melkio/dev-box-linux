@@ -23,8 +23,7 @@ apt-get upgrade -y
 echo ">>>> Install basic packages"
 apt-get install \
     build-essential autoconf \
-    -y
-apt-get install \
+    dconf-cli \
     firefox-esr gnome-terminal \
     git tree unzip jq \
     curl wget httpie \
@@ -56,18 +55,17 @@ apt-get install apt-transport-https -y
 apt-get update
 apt-get install code -y
 
-echo ">>>> Install dotfiles"
-su - melkio <<HEREDOC
+sudo -iu melkio <<HEREDOC
+    echo ">>>> Install dotfiles"
+
     if [ ! -d ~/dotfiles ]; then
         git clone https://github.com/melkio/dotfiles.git ~/.dotfiles
         cd ~/.dotfiles
         sh bootstrap.sh
     fi
-HEREDOC
 
-echo ">>>> Configure gnome terminal"
-apt-get install dconf-cli -y
-su - melkio <<HEREDOC
+    echo ">>>> Configure gnome terminal"
+
     dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
 HEREDOC
 
