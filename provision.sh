@@ -23,11 +23,14 @@ apt-get upgrade -y
 echo ">>>> Install basic packages"
 apt-get install \
     build-essential autoconf \
-    dconf-cli \
+    dirmngr gpg dconf-cli \
     firefox-esr gnome-terminal \
     git tree unzip jq \
     curl wget httpie \
     -y
+
+echo ">>>> Install dotnet core deps"
+apt-get install libcurl zlib -y
 
 echo ">>>> Install GUI packages"
 apt-get install xorg i3 slim dbus-x11 -y
@@ -56,6 +59,18 @@ sudo -iu melkio <<HEREDOC
         sh bootstrap.sh
     fi
 
+    echo ">>>> Install asdf and related plugins..."
+
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+    source ~/.asdf/asdf.sh
+
+    asdf plugin-add dotnet-core https://github.com/emersonsoares/asdf-dotnet-core.git
+    asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    bash -c '~/.asdf/plugins/nodejs/bin/import-release-team-keyring'
+
+    asdf install dotnet-core 3.1.402 && asdf global dotnet-core 3.1.402
+    asdf install nodejs 14.11.0 && asdf global nodejs 14.11.0
+    
     echo ">>>> Configure gnome terminal"
 
     dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
