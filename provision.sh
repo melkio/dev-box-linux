@@ -23,7 +23,8 @@ apt-get upgrade -y
 echo ">>>> Install basic packages"
 apt-get install \
     build-essential autoconf \
-    dirmngr gpg dconf-cli \
+    dirmngr gpg dconf-cli gnupg-agent software-properties-common \
+    apt-transport-https ca-certificates \
     firefox-esr gnome-terminal \
     git tree unzip jq \
     curl wget httpie \
@@ -44,6 +45,16 @@ apt-get install xorg i3 slim dbus-x11 -y
 # xclip x11-utils autocutsel unclutter
 # libglib2.0-bin
 
+echo ">>>> Install docker and docker-compose"
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+apt-get update
+apt-get install docker-ce docker-ce-cli containerd.io -y
+usermod -aG docker melkio
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
 echo ">>>> Install Google Chrome"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get install ./google-chrome-stable_current_amd64.deb -y
@@ -55,7 +66,7 @@ install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 apt-get update
-apt-get install apt-transport-https code -y
+apt-get install code -y
 
 echo ">>>> Install Azure Data Studio"
 wget https://sqlopsbuilds.azureedge.net/stable/2413919f186f780f0193d047da3d90bb3c1e9bf6/azuredatastudio-linux-1.21.0.deb
