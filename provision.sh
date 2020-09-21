@@ -32,6 +32,9 @@ apt-get install \
 echo ">>>> Install dotnet core deps"
 apt-get install libcurl zlib -y
 
+echo ">>>> Install Azure Data Studio deps"
+apt-get install libunwind8 -y
+
 echo ">>>> Install GUI packages"
 apt-get install xorg i3 slim dbus-x11 -y
 
@@ -53,6 +56,11 @@ sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft
 
 apt-get update
 apt-get install apt-transport-https code -y
+
+echo ">>>> Install Azure Data Studio"
+wget https://sqlopsbuilds.azureedge.net/stable/2413919f186f780f0193d047da3d90bb3c1e9bf6/azuredatastudio-linux-1.21.0.deb
+apt-get install ./azuredatastudio-linux-1.21.0.deb -y
+rm ./azuredatastudio-linux-1.21.0.deb
 
 sudo -iu melkio <<HEREDOC
     echo ">>>> Install dotfiles"
