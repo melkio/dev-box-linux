@@ -47,7 +47,7 @@ apt-get install xorg i3 slim dbus-x11 -y
 
 echo ">>>> Install docker and docker-compose"
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io -y
 usermod -aG docker melkio
@@ -63,8 +63,7 @@ rm ./google-chrome-stable_current_amd64.deb
 echo ">>>> Install VS Code"
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-
+echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list
 apt-get update
 apt-get install code -y
 
@@ -72,6 +71,12 @@ echo ">>>> Install Azure Data Studio"
 wget https://sqlopsbuilds.azureedge.net/stable/2413919f186f780f0193d047da3d90bb3c1e9bf6/azuredatastudio-linux-1.21.0.deb
 apt-get install ./azuredatastudio-linux-1.21.0.deb -y
 rm ./azuredatastudio-linux-1.21.0.deb
+
+echo ">>>> Install Insomnia"
+wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc | apt-key add -
+echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" > /etc/apt/sources.list.d/insomnia.list
+apt-get update
+apt-get install insomnia -y
 
 sudo -iu melkio <<HEREDOC
     echo ">>>> Install dotfiles"
