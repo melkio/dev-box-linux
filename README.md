@@ -10,6 +10,11 @@ Others requirements are:
 * [VirtualBox](https://www.virtualbox.org)
 * [Vagrant vbguest plugin](https://github.com/dotless-de/vagrant-vbguest)
 
+*or*
+
+* [Parallels Pro](https://www.parallels.com/products/desktop/pro)
+* [Vagrant Parallels provider](https://github.com/Parallels/vagrant-parallels)
+
 ## How To Build The Virtual Machine
 
 Building the virtual machine is this easy:
@@ -24,4 +29,4 @@ That's it.
 
 ## RAM and CPUs
 
-By default, the VM launches with 4 GB of RAM and 2 CPUs.
+By default, the VM launches with 8 GB of RAM and 2 CPUs.
