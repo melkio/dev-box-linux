@@ -6,10 +6,10 @@ Vagrant.configure("2") do |config|
   
   config.vm.box = "bento/debian-10.5"
   config.vm.box_check_update = false
-  config.vm.hostname = "atene"
+  config.vm.hostname = "helsinki"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "dev-box"
+    vb.name = "helsinki"
     vb.cpus = 2
     vb.memory = 4096
     vb.gui = true
