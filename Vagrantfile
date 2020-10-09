@@ -25,29 +25,29 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
-  config.vm.provider "parallels" do |parallels, override|
-    parallels.update_guest_tools = true
+  config.vm.provider "parallels" do |p, override|
+    p.update_guest_tools = true
     
-    parallels.name = VM_NAME
-    parallels.cpus = VM_CPUS
-    parallels.memory = VM_MEMORY
+    p.name = VM_NAME
+    p.cpus = VM_CPUS
+    p.memory = VM_MEMORY
 
     # https://github.com/Parallels/vagrant-parallels/pull/362
     override.vm.synced_folder ".", "/vagrant", mount_options: ["share", "noatime", "host_inodes"] 
     
-    parallels.customize ["set", :id, "--videosize", "256"]
-    parallels.customize ["set", :id, "--3d-accelerate", "off"]
-    parallels.customize ["set", :id, "--vertical-sync", "on"]
-    parallels.customize ["set", :id, "--high-resolution", "on"]
-    parallels.customize ["set", :id, "--sync-host-printers", "off"]
-    parallels.customize ["set", :id, "--sync-default-printer", "off"]
-    parallels.customize ["set", :id, "--auto-share-camera", "off"]
-    parallels.customize ["set", :id, "--auto-share-bluetooth", "off"]
-    parallels.customize ["set", :id, "--support-usb30", "off"]
-    parallels.customize ["set", :id, "--autostart", "off"]
-    parallels.customize ["set", :id, "--startup-view", "fullscreen"]
-    parallels.customize ["set", :id, "--on-shutdown", "quit"]
-    parallels.customize ["set", :id, "--faster-vm", "on"]
+    p.customize ["set", :id, "--videosize", "256"]
+    p.customize ["set", :id, "--3d-accelerate", "off"]
+    p.customize ["set", :id, "--vertical-sync", "on"]
+    p.customize ["set", :id, "--high-resolution", "on"]
+    p.customize ["set", :id, "--sync-host-printers", "off"]
+    p.customize ["set", :id, "--sync-default-printer", "off"]
+    p.customize ["set", :id, "--auto-share-camera", "off"]
+    p.customize ["set", :id, "--auto-share-bluetooth", "off"]
+    p.customize ["set", :id, "--support-usb30", "off"]
+    p.customize ["set", :id, "--autostart", "off"]
+    p.customize ["set", :id, "--startup-view", "fullscreen"]
+    p.customize ["set", :id, "--on-shutdown", "quit"]
+    p.customize ["set", :id, "--faster-vm", "on"]
   end
 
   config.vm.provision "shell", path: "provision.sh"
