@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = VM_NAME
 
   config.vm.provider "virtualbox" do |vb|
-    config.vbguest.auto_update = true
+#    config.vbguest.auto_update = true
 
     vb.name = VM_NAME
     vb.cpus = VM_CPUS
