@@ -21,5 +21,30 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
   end
 
+  config.vm.provider "parallels" do |parallels, override|
+    parallels.update_guest_tools = true
+    
+    parallels.name = "helsinki"
+    parallels.cpus = 2
+    parallels.memory = 8192
+
+    # https://github.com/Parallels/vagrant-parallels/pull/362
+    override.vm.synced_folder ".", "/vagrant", mount_options: ["share", "noatime", "host_inodes"] 
+    
+    parallels.customize ["set", :id, "--videosize", "256"]
+    parallels.customize ["set", :id, "--3d-accelerate", "off"]
+    parallels.customize ["set", :id, "--vertical-sync", "on"]
+    parallels.customize ["set", :id, "--high-resolution", "on"]
+    parallels.customize ["set", :id, "--sync-host-printers", "off"]
+    parallels.customize ["set", :id, "--sync-default-printer", "off"]
+    parallels.customize ["set", :id, "--auto-share-camera", "off"]
+    parallels.customize ["set", :id, "--auto-share-bluetooth", "off"]
+    parallels.customize ["set", :id, "--support-usb30", "off"]
+    parallels.customize ["set", :id, "--autostart", "off"]
+    parallels.customize ["set", :id, "--startup-view", "fullscreen"]
+    parallels.customize ["set", :id, "--on-shutdown", "quit"]
+    parallels.customize ["set", :id, "--faster-vm", "on"]
+  end
+
   config.vm.provision "shell", path: "provision.sh"
 end
