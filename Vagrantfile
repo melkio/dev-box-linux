@@ -1,17 +1,21 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+VM_NAME = "helsinki"
+VM_CPUS = "2"
+VM_MEMORY = "8192"
+
 Vagrant.configure("2") do |config|
   config.vbguest.auto_update = true
   
   config.vm.box = "bento/debian-10.5"
   config.vm.box_check_update = false
-  config.vm.hostname = "helsinki"
+  config.vm.hostname = VM_NAME
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "helsinki"
-    vb.cpus = 2
-    vb.memory = 4096
+    vb.name = VM_NAME
+    vb.cpus = VM_CPUS
+    vb.memory = VM_MEMORY
     vb.gui = true
 
     vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
@@ -24,9 +28,9 @@ Vagrant.configure("2") do |config|
   config.vm.provider "parallels" do |parallels, override|
     parallels.update_guest_tools = true
     
-    parallels.name = "helsinki"
-    parallels.cpus = 2
-    parallels.memory = 8192
+    parallels.name = VM_NAME
+    parallels.cpus = VM_CPUS
+    parallels.memory = VM_MEMORY
 
     # https://github.com/Parallels/vagrant-parallels/pull/362
     override.vm.synced_folder ".", "/vagrant", mount_options: ["share", "noatime", "host_inodes"] 
