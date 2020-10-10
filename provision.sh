@@ -37,7 +37,7 @@ echo ">>>> Install Azure Data Studio deps"
 apt-get install libunwind8 -y
 
 echo ">>>> Install GUI packages"
-apt-get install xorg i3 slim dbus-x11 -y
+apt-get install xorg i3 slim compton dbus-x11 -y
 
 # Other packages to install (evaluate)
 # libreadline-dev
