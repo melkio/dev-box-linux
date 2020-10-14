@@ -20,8 +20,8 @@ Others requirements are:
 Building the virtual machine is this easy:
 
 ```
-git clone https://github.com/melkio/dev-box-linux.git atene
-cd atene/
+git clone https://github.com/melkio/dev-box-linux.git helsinki
+cd helsinki/
 vagrant up
 ```
 
