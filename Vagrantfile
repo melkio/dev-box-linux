@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
     p.customize ["set", :id, "--auto-share-bluetooth", "off"]
     p.customize ["set", :id, "--support-usb30", "off"]
     p.customize ["set", :id, "--autostart", "off"]
-    p.customize ["set", :id, "--startup-view", "fullscreen"]
+    p.customize ["set", :id, "--startup-view", "window"]
     p.customize ["set", :id, "--on-shutdown", "quit"]
     p.customize ["set", :id, "--faster-vm", "on"]
   end
