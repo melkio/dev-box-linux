@@ -20,12 +20,21 @@ echo ">>>> Update packages"
 apt-get update
 apt-get upgrade -y
 
+echo ">>>> Install GUI packages"
+add-apt-repository ppa:regolith-linux/release
+apt-get install regolith-desktop -y
+apt install i3xrocks-net-traffic \ 
+   i3xrocks-cpu-usage \ 
+   i3xrocks-time \ 
+   i3xrocks-battery \
+   -y
+
 echo ">>>> Install basic packages"
 apt-get install \
     build-essential autoconf \
     dirmngr gpg dconf-cli gnupg-agent software-properties-common \
     apt-transport-https ca-certificates \
-    firefox-esr gnome-terminal \
+    gnome-terminal bash-completion \
     git tree unzip jq \
     curl wget httpie \
     -y
@@ -36,18 +45,9 @@ apt-get install libcurl zlib -y
 echo ">>>> Install Azure Data Studio deps"
 apt-get install libunwind8 -y
 
-echo ">>>> Install GUI packages"
-apt-get install xorg i3 slim compton dbus-x11 -y
-
-# Other packages to install (evaluate)
-# libreadline-dev
-# suckless-tools
-# xclip x11-utils autocutsel unclutter
-# libglib2.0-bin
-
 echo ">>>> Install docker and docker-compose"
-curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io -y
 usermod -aG docker melkio
@@ -81,7 +81,7 @@ apt-get install insomnia -y
 sudo -iu melkio <<HEREDOC
     echo ">>>> Install dotfiles"
 
-    if [ ! -d ~/dotfiles ]; then
+    if [ ! -d ~/.dotfiles ]; then
         git clone https://github.com/melkio/dotfiles.git ~/.dotfiles
         cd ~/.dotfiles
         sh bootstrap.sh
@@ -98,18 +98,11 @@ sudo -iu melkio <<HEREDOC
 
     asdf install dotnet-core 3.1.402 && asdf global dotnet-core 3.1.402
     asdf install nodejs 14.11.0 && asdf global nodejs 14.11.0
-    
-    echo ">>>> Configure gnome terminal"
 
-    dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
+#   echo ">>>> Configure gnome terminal"
+#   dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
 HEREDOC
 
-echo ">>>> Configure and start slim..."
-cp -r /vagrant/config/slim/greeny_dark /usr/share/slim/themes/
-cp /vagrant/config/slim/slim.conf /etc/slim.conf
-
-if service slim status | grep inactive; then
-    service slim start
-fi
-
 echo ">>>> That's all, rock on!"
+
+reboot
