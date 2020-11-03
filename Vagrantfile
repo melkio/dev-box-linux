@@ -11,8 +11,6 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = VM_NAME
 
   config.vm.provider "virtualbox" do |vb|
-#    config.vbguest.auto_update = true
-
     vb.name = VM_NAME
     vb.cpus = VM_CPUS
     vb.memory = VM_MEMORY
@@ -23,6 +21,10 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--vram", "256"]
     vb.customize ["modifyvm", :id, "--acpi", "on"]
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = true
   end
 
   config.vm.provider "parallels" do |p, override|
