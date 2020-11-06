@@ -22,6 +22,7 @@ Building the virtual machine is this easy:
 ```
 git clone https://github.com/melkio/dev-box-linux.git helsinki
 cd helsinki/
+cp ~/.ssh/id_rsa* .
 vagrant up
 ```
 
