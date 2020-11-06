@@ -40,7 +40,7 @@ apt-get install \
     -y
 
 echo ">>>> Install dotnet core deps"
-apt-get install libcurl zlib -y
+apt-get install libcurl4-openssl-dev   zlib1g -y
 
 echo ">>>> Install Azure Data Studio deps"
 apt-get install libunwind8 -y
