@@ -40,7 +40,7 @@ apt-get install \
     -y
 
 echo ">>>> Install dotnet core deps"
-apt-get install libcurl4-openssl-dev   zlib1g -y
+apt-get install libcurl4-openssl-dev zlib1g -y
 
 echo ">>>> Install Azure Data Studio deps"
 apt-get install libunwind8 -y
@@ -79,8 +79,16 @@ apt-get update
 apt-get install insomnia -y
 
 sudo -iu melkio <<HEREDOC
-    echo ">>>> Install dotfiles"
+    echo ">>>> Configure ssh keys"
+    if [ ! -f /vagrant/id_rsa ]; then
+      echo "Missing ssh key files" 1>&2
+      exit 1
+    fi
+    mkdir ~/.ssh
+    cp /vagrant/id_rsa ~/.ssh/id_rsa
+    cp /vagrant/id_rsa.pub ~/.ssh/id_rsa.pub
 
+    echo ">>>> Install dotfiles"
     if [ ! -d ~/.dotfiles ]; then
         git clone https://github.com/melkio/dotfiles.git ~/.dotfiles
         cd ~/.dotfiles
@@ -88,7 +96,6 @@ sudo -iu melkio <<HEREDOC
     fi
 
     echo ">>>> Install asdf and related plugins..."
-
     git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
     source ~/.asdf/asdf.sh
 
