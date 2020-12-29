@@ -93,6 +93,8 @@ sudo -iu melkio <<HEREDOC
         git clone https://github.com/melkio/dotfiles.git ~/.dotfiles
         cd ~/.dotfiles
         sh bootstrap.sh
+        git remote rm origin 
+        git remote add origin git@github.com:melkio/dotfiles.git
     fi
 
     echo ">>>> Install asdf and related plugins..."
