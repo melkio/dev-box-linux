@@ -23,11 +23,6 @@ apt-get upgrade -y
 echo ">>>> Install GUI packages"
 add-apt-repository ppa:regolith-linux/release
 apt-get install regolith-desktop-standard -y
-apt install i3xrocks-net-traffic \ 
-   i3xrocks-cpu-usage \ 
-   i3xrocks-time \ 
-   i3xrocks-battery \
-   -y
 
 echo ">>>> Install basic packages"
 apt-get install \
