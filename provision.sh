@@ -27,8 +27,8 @@ apt-get install regolith-desktop-standard -y
 echo ">>>> Install basic packages"
 apt-get install \
     build-essential autoconf \
-    dirmngr gpg dconf-cli gnupg-agent software-properties-common \
-    apt-transport-https ca-certificates \
+    dirmngr gnupg gpg dconf-cli gnupg-agent software-properties-common \
+    apt-transport-https ca-certificates lsb-release \
     gnome-terminal bash-completion \
     git tree unzip jq \
     curl wget httpie \
@@ -42,11 +42,11 @@ apt-get install libunwind8 -y
 
 echo ">>>> Install erlang deps"
 apt-get install m4 \
-    libncurses5-dev \
+    libncurses5-dev libncurses-dev \
     libwxgtk3.0-gtk3-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev \
     libssh-dev \
     unixodbc-dev \
-    xsltproc fop libxml2-utils libncurses-dev \
+    xsltproc fop libxml2-utils \
     -y
 
 echo ">>>> Install docker and docker-compose"
@@ -64,9 +64,17 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 apt-get install ./google-chrome-stable_current_amd64.deb -y
 rm ./google-chrome-stable_current_amd64.deb
 
-echo ">>>> Install VS Code"
+echo ">>>> Download and install the Microsoft signing key"
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+
+echo ">>>> Install Azure CLI"
+AZ_REPO=$(lsb_release -cs)
+echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" > /etc/apt/sources.list.d/azure-cli.list
+apt-get update
+apt-get install azure-cli -y
+
+echo ">>>> Install VS Code"
 echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list
 apt-get update
 apt-get install code -y
