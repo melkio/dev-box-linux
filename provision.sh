@@ -107,6 +107,7 @@ sudo -iu melkio <<HEREDOC
 
     asdf plugin-add dotnet-core https://github.com/emersonsoares/asdf-dotnet-core.git
     asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+    asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
     asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
     bash -c '~/.asdf/plugins/nodejs/bin/import-release-team-keyring'
 
