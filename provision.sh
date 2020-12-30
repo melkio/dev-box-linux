@@ -110,9 +110,6 @@ sudo -iu melkio <<HEREDOC
     asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
     bash -c '~/.asdf/plugins/nodejs/bin/import-release-team-keyring'
 
-    asdf install dotnet-core 3.1.402 && asdf global dotnet-core 3.1.402
-    asdf install nodejs 14.11.0 && asdf global nodejs 14.11.0
-
 #   echo ">>>> Configure gnome terminal"
 #   dbus-launch dconf load /org/gnome/terminal/ < /vagrant/config/terminal/gnome-terminal.dconf
 HEREDOC
