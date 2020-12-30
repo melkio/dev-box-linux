@@ -40,6 +40,15 @@ apt-get install libcurl4-openssl-dev zlib1g -y
 echo ">>>> Install Azure Data Studio deps"
 apt-get install libunwind8 -y
 
+echo ">>>> Install erlang deps"
+apt-get install m4 \
+    libncurses5-dev \
+    libwxgtk3.0-gtk3-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev \
+    libssh-dev \
+    unixodbc-dev \
+    xsltproc fop libxml2-utils libncurses-dev \
+    -y
+
 echo ">>>> Install docker and docker-compose"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
