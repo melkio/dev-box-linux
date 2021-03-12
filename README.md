@@ -30,4 +30,4 @@ That's it.
 
 ## RAM and CPUs
 
-By default, the VM launches with 8 GB of RAM and 2 CPUs.
+By default, the VM starts with 8 GB of RAM and 2 CPUs.
